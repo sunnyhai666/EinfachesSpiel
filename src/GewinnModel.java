@@ -33,18 +33,18 @@ public class GewinnModel {
     public void berechneRunde(int spielerzahl) {
         this.spielerZahl = spielerzahl;
         if (spielerzahl == computerZahl) {
-            this.rundenErgebnis = 20;
-            this.gesamtPunkte =+ 20;
+            this.rundenErgebnis = +20;
+            this.gesamtPunkte += 20;
         }
 
         else if (spielerzahl-1 == computerZahl || spielerzahl+1 == computerZahl) {
-            this.rundenErgebnis = 5;
-            this.gesamtPunkte =+ 5;
+            this.rundenErgebnis = +5;
+            this.gesamtPunkte += 5;
         }
 
         else {
             this.rundenErgebnis = -10;
-            this.gesamtPunkte =- 10;
+            this.gesamtPunkte -= 10;
         }
     }
 
