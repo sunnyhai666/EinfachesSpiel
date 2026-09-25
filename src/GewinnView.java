@@ -102,15 +102,23 @@ public class GewinnView extends JPanel {
         input.setEnabled(false);
 
         if (gewonnen) {
+            runde.setBackground(Color.GREEN);
+            runde.setForeground(Color.BLACK);
             runde.setText("Gewonnen :D");
         }
         else if (verloren) {
+            runde.setBackground(Color.RED);
+            runde.setForeground(Color.BLACK);
             runde.setText("Verloren D:");
         }
         else if (rundenErgebnis > 0){
+            runde.setBackground(Color.WHITE);
+            runde.setForeground(Color.GREEN);
             runde.setText("+"+rundenErgebnis);
         }
         else {
+            runde.setBackground(Color.WHITE);
+            runde.setForeground(Color.RED);
             runde.setText(rundenErgebnis+"");
         }
 
@@ -118,6 +126,7 @@ public class GewinnView extends JPanel {
     }
 
     public void zeigeUngueltigeEingabe() {
+        runde.setBackground(Color.WHITE);
         runde.setForeground(Color.RED);
         runde.setText("Bitte eine Zahl von 1 bis 9 eingeben!");
     }
@@ -128,6 +137,7 @@ public class GewinnView extends JPanel {
             Object o = e.getSource();
 
             if (o == nochmal) {
+                runde.setBackground(Color.WHITE);
                 runde.setForeground(Color.BLACK);
                 input.setEnabled(true);
                 nochmal.setEnabled(false);
