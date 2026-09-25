@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 public class GewinnView extends JPanel {
     private GewinnController controller;
 
-
     private JLabel rundenErgebnis= new JLabel("Rundenergebnis:");
     private JLabel gesamtPunkte= new JLabel("Gesamtpunkte:");
     private JLabel deineZahl= new JLabel("Deine Zahl:");
@@ -101,18 +100,19 @@ public class GewinnView extends JPanel {
         computerOutput.setText(computerZahl+"");
 
         if (gewonnen) {
-            runde.setForeground(Color.GREEN);
             runde.setText("Gewonnen :D");
         }
         else if (verloren) {
-            runde.setForeground(Color.RED);
             runde.setText("Verloren D:");
         }
+        else if (rundenErgebnis > 0){
+            runde.setText("+"+rundenErgebnis);
+        }
         else {
-            runde.setText(rundenErgebnis + "");
+            runde.setText(rundenErgebnis+"");
         }
 
-            punkte.setText(gesamtPunkte + "");
+        punkte.setText(gesamtPunkte + "");
     }
 
     public void zeigeUngueltigeEingabe() {
