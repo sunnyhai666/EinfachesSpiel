@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 public class GewinnView extends JPanel {
     private GewinnController controller;
 
-
     private JLabel rundenErgebnis= new JLabel("Rundenergebnis:");
     private JLabel gesamtPunkte= new JLabel("Gesamtpunkte:");
     private JLabel deineZahl= new JLabel("Deine Zahl:");
@@ -71,7 +70,7 @@ public class GewinnView extends JPanel {
         c.weighty = 2.0;
         add(computerOutput, c);
 
-
+        nochmal.setEnabled(false);
         computerOutput.setEnabled(false);
         runde.setBackground(Color.WHITE);
         punkte.setBackground(Color.WHITE);
@@ -99,20 +98,23 @@ public class GewinnView extends JPanel {
 
     public void zeigeErgebnis(int computerZahl, int rundenErgebnis, int gesamtPunkte, boolean verloren, boolean gewonnen) {
         computerOutput.setText(computerZahl+"");
+        nochmal.setEnabled(true);
+        input.setEnabled(false);
 
         if (gewonnen) {
-            runde.setForeground(Color.GREEN);
             runde.setText("Gewonnen :D");
         }
         else if (verloren) {
-            runde.setForeground(Color.RED);
             runde.setText("Verloren D:");
         }
+        else if (rundenErgebnis > 0){
+            runde.setText("+"+rundenErgebnis);
+        }
         else {
-            runde.setText(rundenErgebnis + "");
+            runde.setText(rundenErgebnis+"");
         }
 
-            punkte.setText(gesamtPunkte + "");
+        punkte.setText(gesamtPunkte + "");
     }
 
     public void zeigeUngueltigeEingabe() {
@@ -128,6 +130,7 @@ public class GewinnView extends JPanel {
             if (o == nochmal) {
                 runde.setForeground(Color.BLACK);
                 input.setEnabled(true);
+                nochmal.setEnabled(false);
                 runde.setText("Tippe eine Zahl von 1 bis 9");
                 input.setText("");
                 computerOutput.setText("");
