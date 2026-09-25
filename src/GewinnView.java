@@ -4,7 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GewinnView extends JPanel {
-    private GewinnModel model = new GewinnModel();
+    private GewinnController controller;
+
 
     private JLabel rundenErgebnis= new JLabel("Rundenergebnis:");
     private JLabel gesamtPunkte= new JLabel("Gesamtpunkte:");
@@ -76,7 +77,7 @@ public class GewinnView extends JPanel {
         punkte.setBackground(Color.WHITE);
 
         runde.setOpaque(true);
-        runde.setText("Tippe eine Zahl von 0 bis 9");
+        runde.setText("Tippe eine Zahl von 1 bis 9");
 
         punkte.setOpaque(true);
         punkte.setText("Gesamtpunkte: 30");
@@ -92,53 +93,53 @@ public class GewinnView extends JPanel {
         input.addActionListener(bh);
     }
 
+    public void setController(GewinnController controller) {
+        this.controller = controller;
+    }
+
+    public void zeigeErgebnis(int computerZahl, int rundenErgebnis, int gesamtPunkte, boolean verloren, boolean gewonnen) {
+        computerOutput.setText(computerZahl+"");
+
+        if (gewonnen) {
+            runde.setForeground(Color.GREEN);
+            runde.setText("Gewonnen :D");
+        }
+        else if (verloren) {
+            runde.setForeground(Color.RED);
+            runde.setText("Verloren D:");
+        }
+        else {
+            runde.setText(rundenErgebnis + "");
+        }
+
+            punkte.setText(gesamtPunkte + "");
+    }
+
+    public void zeigeUngueltigeEingabe() {
+        runde.setForeground(Color.RED);
+        runde.setText("Bitte eine Zahl von 1 bis 9 eingeben!");
+    }
+
     private class JButtonHandler implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            Object o  = e.getSource();
+            Object o = e.getSource();
 
             if (o == nochmal) {
                 runde.setForeground(Color.BLACK);
                 input.setEnabled(true);
                 runde.setText("Tippe eine Zahl von 1 bis 9");
-                punkte.setText("Gesamtpunkte: 30");
                 input.setText("");
                 computerOutput.setText("");
             }
 
             if (o == input) {
                 try {
-                    int zahl = Integer.parseInt(input.getText());
-
-                    if (zahl >= 1 && zahl <= 9) {
-                        model.berechneComputerZahl();
-                        computerOutput.setText(Integer.toString(model.getComputerZahl()));
-
-                        model.berechneRunde(zahl);
-                        runde.setText(Integer.toString(model.getRundenErgebnis()));
-
-                        punkte.setText(Integer.toString(model.getGesamtPunkte()));
-
-                        if (model.hatGewonnen()) {
-                            input.setEnabled(false);
-                            runde.setForeground(Color.GREEN);
-                            runde.setText("Gewonnen :D");
-                        }
-
-                        if (model.hatVerloren()) {
-                            input.setEnabled(false);
-                            runde.setForeground(Color.RED);
-                            runde.setText("Verloren D:");
-                        }
-
-                    } else {
-                        runde.setForeground(Color.RED);
-                        runde.setText("Bitte eine Zahl von 1 bis 9 eingeben!");
-                    }
-
-                } catch (NumberFormatException ex) {
-                    runde.setForeground(Color.RED);
-                    runde.setText("Bitte eine Zahl von 1 bis 9 eingeben!");
+                    int zahl =  Integer.parseInt(input.getText());
+                    controller.spieleRunde(zahl);
+                }
+                catch (NumberFormatException ex) {
+                    controller.spieleRunde(-1);
                 }
             }
         }
