@@ -70,7 +70,7 @@ public class GewinnView extends JPanel {
         c.weighty = 2.0;
         add(computerOutput, c);
 
-
+        nochmal.setEnabled(false);
         computerOutput.setEnabled(false);
         runde.setBackground(Color.WHITE);
         punkte.setBackground(Color.WHITE);
@@ -98,6 +98,8 @@ public class GewinnView extends JPanel {
 
     public void zeigeErgebnis(int computerZahl, int rundenErgebnis, int gesamtPunkte, boolean verloren, boolean gewonnen) {
         computerOutput.setText(computerZahl+"");
+        nochmal.setEnabled(true);
+        input.setEnabled(false);
 
         if (gewonnen) {
             runde.setText("Gewonnen :D");
@@ -128,6 +130,7 @@ public class GewinnView extends JPanel {
             if (o == nochmal) {
                 runde.setForeground(Color.BLACK);
                 input.setEnabled(true);
+                nochmal.setEnabled(false);
                 runde.setText("Tippe eine Zahl von 1 bis 9");
                 input.setText("");
                 computerOutput.setText("");
